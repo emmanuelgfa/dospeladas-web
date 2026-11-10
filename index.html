@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dos Peladas Hostal · Cabañas sobre ruedas en Mendihuaca</title>
+<meta name="description" content="Refugio boutique para solo 10 personas: cabañas de bioconstrucción sobre ruedas, frente de río, entre la Sierra Nevada y el Caribe, a minutos del Tayrona.">
+<link rel="icon" href="img/logo-color.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky-a:#f4c37a; --sky-b:#e07a3f;          /* scroll-driven sunset (updated by JS) */
+  --ink:#2a1a10; --wood:#6b3f22; --teak:#8b5a2b; --amber:#d98a3d;
+  --sand:#f3e6d0; --linen:#faf3e7; --jungle:#2f4a3a; --ember:#c4532a;
+  --serif:"Fraunces",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--linen);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--amber);color:var(--linen)}
+
+/* wood grain texture overlay */
+.grain::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.1;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.18' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.25 0 0 0 0 0.13 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E")}
+
+/* ---------- preloader ---------- */
+#loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--wood);transition:clip-path 1.2s var(--ease) .2s;clip-path:circle(150% at 50% 50%)}
+#loader.done{clip-path:circle(0% at 50% 100%)}
+#loader .sun{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#ffd89a,var(--amber));box-shadow:0 0 80px #f4a54a;animation:rise 1.4s var(--ease) both}
+#loader p{position:absolute;bottom:22%;font-family:var(--serif);font-style:italic;color:var(--sand);letter-spacing:.2em;font-size:.9rem;opacity:.8}
+@keyframes rise{from{transform:translateY(80px) scale(.6);opacity:0}}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1.1rem clamp(1.2rem,4vw,3rem);transition:background .5s,padding .5s,color .5s;color:var(--linen)}
+nav.solid{background:rgba(250,243,231,.86);backdrop-filter:blur(14px);color:var(--ink);padding:.7rem clamp(1.2rem,4vw,3rem);box-shadow:0 1px 0 rgba(107,63,34,.12)}
+nav .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:var(--serif);font-size:1.25rem}
+nav .brand img{height:38px;width:auto;transition:filter .5s}
+nav:not(.solid) .brand img{filter:brightness(0) invert(1)}
+nav ul{display:flex;gap:2rem;list-style:none;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+nav ul a{text-decoration:none;position:relative}
+nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.6rem;border-radius:999px;background:var(--ember);color:var(--linen);text-decoration:none;font-weight:500;letter-spacing:.04em;transition:transform .4s var(--ease),background .3s,box-shadow .4s;box-shadow:0 10px 30px -10px rgba(196,83,42,.7)}
+.btn:hover{transform:translateY(-3px);background:#a9431f}
+.btn.ghost{background:transparent;border:1px solid currentColor;box-shadow:none}
+@media(max-width:860px){nav ul{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100svh;min-height:620px;overflow:hidden;color:var(--linen)}
+.hero .bg{position:absolute;inset:-8% 0 0 0;background:url(img/cab17.jpg) center 40%/cover;transform:scale(1.15);animation:kenburns 2.6s var(--ease) .4s forwards;will-change:transform}
+@keyframes kenburns{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,26,16,.15) 0%,rgba(42,26,16,.0) 35%,rgba(107,63,34,.55) 75%,rgba(42,26,16,.9) 100%),linear-gradient(90deg,rgba(224,122,63,.35),transparent 60%)}
+.hero .content{position:absolute;z-index:2;left:clamp(1.2rem,6vw,6rem);right:clamp(1.2rem,6vw,6rem);bottom:12vh}
+.eyebrow{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;opacity:.85}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,9.5vw,8.5rem);line-height:.95;letter-spacing:-.02em;margin:.6rem 0 1.4rem}
+.hero h1 em{font-style:italic;color:#ffd39a}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top}
+.split .w span{display:inline-block;transform:translateY(110%);transition:transform 1.1s var(--ease)}
+.ready .split .w span{transform:none}
+.hero p.lead{max-width:34rem;font-size:clamp(1rem,1.4vw,1.2rem);opacity:0;transform:translateY(20px);transition:all 1s var(--ease) 1.2s}
+.ready .hero p.lead,.ready .hero .cta{opacity:1;transform:none}
+.hero .cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:all 1s var(--ease) 1.4s}
+.scroll-cue{position:absolute;z-index:2;right:clamp(1.2rem,4vw,3rem);bottom:12vh;writing-mode:vertical-rl;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:1rem}
+.scroll-cue::after{content:"";width:1px;height:70px;background:linear-gradient(var(--linen),transparent);animation:drip 2s infinite}
+@media(max-width:700px){.scroll-cue{display:none}}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- sunset band (scroll-reactive) ---------- */
+.sunset{position:relative;background:linear-gradient(180deg,var(--sky-a),var(--sky-b));color:var(--ink);transition:background .2s linear}
+.sunset .sundisc{position:absolute;right:8vw;top:var(--sun-y,10%);width:clamp(120px,18vw,260px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fff1cf 0%,#ffc56e 45%,rgba(255,170,90,0) 70%);filter:blur(2px);pointer-events:none;opacity:.85}
+
+section{position:relative;padding:clamp(5rem,12vw,10rem) clamp(1.2rem,6vw,6rem)}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.5vw,4.6rem);line-height:1.02;letter-spacing:-.015em}
+h2 em{font-style:italic;color:var(--ember)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.mask{clip-path:inset(100% 0 0 0);transition:clip-path 1.4s var(--ease)}
+.mask.in{clip-path:inset(0 0 0 0)}
+.mask img{transform:scale(1.25);transition:transform 2s var(--ease)}
+.mask.in img{transform:scale(1)}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.intro p{font-size:1.15rem;max-width:32rem;margin-top:1.5rem}
+.intro .photos{position:relative;height:clamp(420px,52vw,640px)}
+.intro .photos .mask{position:absolute;border-radius:200px 200px 14px 14px;overflow:hidden;box-shadow:0 40px 60px -30px rgba(42,26,16,.6)}
+.intro .photos .a{width:62%;height:82%;left:0;top:0}
+.intro .photos .b{width:48%;height:58%;right:0;bottom:0;border-radius:14px;transition-delay:.25s}
+.intro .photos img{width:100%;height:100%;object-fit:cover}
+@media(max-width:860px){.intro{grid-template-columns:1fr}}
+
+/* counters */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:clamp(4rem,8vw,7rem);border-top:1px solid rgba(42,26,16,.25);padding-top:2.5rem}
+.stat b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,6vw,5rem);line-height:1}
+.stat span{font-size:.85rem;letter-spacing:.06em;opacity:.8}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr);row-gap:2rem}}
+
+/* ---------- cabins: horizontal scroll ---------- */
+.cabins{background:var(--wood);color:var(--sand);padding:0}
+.cabins .pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.cabins .head{padding:0 clamp(1.2rem,6vw,6rem);margin-bottom:2.5rem;display:flex;justify-content:space-between;align-items:end;gap:2rem}
+.cabins h2 em{color:#ffc56e}
+.track{display:flex;gap:clamp(1.2rem,3vw,2.5rem);padding:0 clamp(1.2rem,6vw,6rem);will-change:transform}
+.cabin{flex:0 0 clamp(300px,72vw,980px);display:grid;grid-template-columns:1.1fr 1fr;background:rgba(250,243,231,.06);border:1px solid rgba(243,230,208,.15);border-radius:18px;overflow:hidden;min-height:clamp(420px,60vh,560px)}
+.cabin .pic{position:relative;overflow:hidden}
+.cabin .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),opacity .8s}
+.cabin .pic img+img{opacity:0}
+.cabin:hover .pic img{transform:scale(1.06)}
+.cabin:hover .pic img+img{opacity:1}
+.cabin .txt{padding:clamp(1.4rem,3vw,2.6rem);display:flex;flex-direction:column;gap:1rem}
+.tag{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#ffc56e}
+.cabin h3{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,3.4vw,3rem);line-height:1}
+.cabin ul{list-style:none;font-size:.9rem;display:grid;gap:.35rem;opacity:.85}
+.cabin ul li::before{content:"✦ ";color:var(--amber)}
+.price{margin-top:auto;font-family:var(--serif);font-size:1.5rem}
+.price small{display:block;font-family:var(--sans);font-size:.78rem;opacity:.7}
+.soon{position:absolute;top:1rem;left:1rem;background:var(--ember);color:var(--linen);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .8rem;border-radius:999px;z-index:2}
+.progress{height:2px;background:rgba(243,230,208,.15);margin:2.5rem clamp(1.2rem,6vw,6rem) 0;position:relative}
+.progress i{position:absolute;inset:0;background:#ffc56e;transform-origin:left;transform:scaleX(0)}
+@media(max-width:860px){
+  .cabins .pin{position:static;height:auto;padding:5rem 0}
+  .track{flex-direction:column;transform:none!important}
+  .cabin{flex-basis:auto;grid-template-columns:1fr}.cabin .pic{height:300px}
+  .progress{display:none}.cabins{height:auto!important}
+}
+
+/* ---------- river (parallax full bleed) ---------- */
+.river{height:110vh;padding:0;overflow:hidden;color:var(--linen);display:grid;place-items:center;text-align:center}
+.river .bg{position:absolute;inset:-20% 0;background:url(img/esp38.jpg) center/cover;will-change:transform}
+.river::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(42,26,16,.25),rgba(42,26,16,.75))}
+.river .content{position:relative;z-index:2;max-width:46rem;padding:0 1.5rem}
+.river h2{font-size:clamp(2.6rem,7vw,6rem)}
+.river h2 em{color:#ffd39a}
+.river p{margin-top:1.4rem;font-size:1.15rem;opacity:.92}
+
+/* ---------- shared spaces: bento ---------- */
+.spaces .grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(150px,17vw,230px);gap:1rem;margin-top:3.5rem}
+.tile{position:relative;border-radius:16px;overflow:hidden;color:var(--linen);isolation:isolate}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 40%,rgba(42,26,16,.85));transition:opacity .6s}
+.tile:hover img{transform:scale(1.08)}
+.tile .cap{position:absolute;left:1.2rem;right:1.2rem;bottom:1.1rem}
+.tile h4{font-family:var(--serif);font-weight:400;font-size:1.4rem;line-height:1.1}
+.tile p{font-size:.85rem;max-height:0;opacity:0;overflow:hidden;transition:max-height .6s var(--ease),opacity .6s}
+.tile:hover p{max-height:6rem;opacity:.9;margin-top:.35rem}
+.t1{grid-column:span 3;grid-row:span 2}.t2{grid-column:span 3}.t3{grid-column:span 2;grid-row:span 2}.t4{grid-column:span 1;grid-row:span 2}
+.t5{grid-column:span 3;grid-row:span 1}.t6{grid-column:span 2}.t7{grid-column:span 2}.t8{grid-column:span 2}
+@media(max-width:860px){.spaces .grid{grid-template-columns:1fr 1fr}.spaces .grid>*{grid-column:span 1!important;grid-row:span 1!important}.t1{grid-column:span 2!important}}
+@media(hover:none){.tile p{max-height:none;opacity:.9}}
+
+/* ---------- plans: marquee + list ---------- */
+.plans{background:var(--jungle);color:var(--sand);overflow:hidden}
+.plans h2 em{color:#ffc56e}
+.marquee{display:flex;gap:3rem;white-space:nowrap;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(3rem,9vw,8rem);opacity:.13;margin:0 -6rem 3rem;animation:marq 40s linear infinite}
+@keyframes marq{to{transform:translateX(-50%)}}
+.plist{list-style:none;border-top:1px solid rgba(243,230,208,.2);margin-top:3rem}
+.plist li{display:grid;grid-template-columns:4rem 1fr 1.2fr;gap:1.5rem;align-items:baseline;padding:1.6rem 0;border-bottom:1px solid rgba(243,230,208,.2);transition:padding .5s var(--ease),background .5s;cursor:default}
+.plist li:hover{padding-left:1.2rem;background:linear-gradient(90deg,rgba(255,197,110,.08),transparent)}
+.plist .n{font-family:var(--serif);color:#ffc56e}
+.plist h5{font-family:var(--serif);font-weight:300;font-size:clamp(1.3rem,2.4vw,2rem)}
+.plist p{opacity:.75;font-size:.95rem}
+@media(max-width:700px){.plist li{grid-template-columns:2.5rem 1fr}.plist p{grid-column:2}}
+
+/* ---------- pets / us ---------- */
+.us{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.us .pics{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.us .pics .mask{border-radius:14px;overflow:hidden}
+.us .pics .mask:nth-child(2){margin-top:4rem;transition-delay:.2s}
+.us .pics img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.us p{margin-top:1.3rem;font-size:1.08rem;max-width:32rem}
+.pet{margin-top:2rem;display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;border-radius:14px;background:rgba(250,243,231,.5);border:1px solid rgba(107,63,34,.18);max-width:32rem}
+.pet img{width:64px;height:64px;border-radius:50%;object-fit:cover}
+@media(max-width:860px){.us{grid-template-columns:1fr}}
+
+/* ---------- reviews ---------- */
+.reviews{text-align:center;background:var(--sand)}
+.stars{color:var(--amber);letter-spacing:.3em;font-size:1.3rem}
+.quote{position:relative;min-height:12rem;max-width:52rem;margin:2.5rem auto 0}
+.quote blockquote{position:absolute;inset:0;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.3;opacity:0;transform:translateY(20px);transition:all .9s var(--ease)}
+.quote blockquote.on{opacity:1;transform:none}
+.quote cite{display:block;margin-top:1.2rem;font-family:var(--sans);font-style:normal;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65}
+.dots{display:flex;justify-content:center;gap:.6rem;margin-top:2rem}
+.dots button{width:28px;height:3px;border:0;background:rgba(42,26,16,.2);cursor:pointer;transition:background .3s,width .4s}
+.dots button.on{background:var(--ember);width:48px}
+
+/* ---------- arrive + book ---------- */
+.book{background:linear-gradient(180deg,#e07a3f 0%,#9c4a26 45%,#3a2214 100%);color:var(--linen);text-align:center;overflow:hidden}
+.book h2{font-size:clamp(2.8rem,8vw,7rem)}
+.book h2 em{color:#ffd39a}
+.book p{max-width:36rem;margin:1.5rem auto 2.5rem;opacity:.9}
+.book .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:62rem;margin:5rem auto 0;text-align:left}
+.way{padding:1.6rem;border-radius:16px;background:rgba(250,243,231,.07);border:1px solid rgba(250,243,231,.15);backdrop-filter:blur(6px)}
+.way h6{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin-bottom:.5rem;color:#ffd39a}
+.way p{margin:0;font-size:.92rem;opacity:.85;max-width:none}
+@media(max-width:860px){.book .ways{grid-template-columns:1fr}}
+.palms{position:absolute;bottom:-2px;left:0;right:0;height:22vw;max-height:240px;pointer-events:none;opacity:.9}
+
+footer{background:#22150c;color:rgba(243,230,208,.7);padding:3rem clamp(1.2rem,6vw,6rem);display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:center;font-size:.88rem}
+footer img{height:46px;filter:brightness(0) invert(.9)}
+footer a{text-decoration:none}footer a:hover{color:#ffc56e}
+
+/* floating whatsapp */
+.wa{position:fixed;right:1.3rem;bottom:1.3rem;z-index:60;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;box-shadow:0 12px 30px -8px rgba(0,0,0,.45);transform:scale(0);transition:transform .6s var(--ease)}
+.wa.show{transform:scale(1)}
+.wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:ping 2.4s infinite}
+@keyframes ping{to{transform:scale(1.6);opacity:0}}
+
+/* cursor glow */
+.glow{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(255,197,110,.18),transparent 65%);transform:translate(-50%,-50%);mix-blend-mode:screen;transition:opacity .4s;opacity:0}
+@media(hover:hover){.glow.on{opacity:1}}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.mask,.split .w span{opacity:1;transform:none;clip-path:none}}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="sun"></div><p>Mendihuaca · Sierra Nevada</p></div>
+<div class="glow" aria-hidden="true"></div>
+
+<nav id="nav">
+  <a class="brand" href="#top"><img src="img/logo-color.png" alt="Dos Peladas"></a>
+  <ul>
+    <li><a href="#cabanas">Cabañas</a></li>
+    <li><a href="#hostal">El hostal</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#reservar">Cómo llegar</a></li>
+  </ul>
+  <a class="btn" href="https://wa.me/573007256975?text=Hola%2C%20quiero%20reservar%20en%20Dos%20Peladas" target="_blank" rel="noopener">Reservar</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="bg" data-parallax="0.35"></div>
+  <div class="content">
+    <div class="eyebrow">Vereda Mendihuaca · Sierra Nevada de Santa Marta</div>
+    <h1 class="split">Selva, río,<br><em>Caribe</em> y buenas vibras.</h1>
+    <p class="lead">Un refugio íntimo para solo 10 personas: cabañas de bioconstrucción sobre ruedas, frente de río, a pocos minutos del Parque Tayrona.</p>
+    <div class="cta">
+      <a class="btn" href="#cabanas">Ver las cabañas</a>
+      <a class="btn ghost" href="https://wa.me/573007256975" target="_blank" rel="noopener">Escríbenos</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Desliza</div>
+</header>
+
+<div class="sunset grain" id="sunset">
+  <div class="sundisc" aria-hidden="true"></div>
+  <section class="intro" id="hostal">
+    <div class="reveal">
+      <div class="eyebrow">El refugio</div>
+      <h2>Entre la selva de la Sierra y la <em>brisa</em> del Caribe.</h2>
+      <p>Tres cabañas, cada una con su nombre. Técnicas tradicionales de bioconstrucción —quincha, madera teca, caña y techo de paja— sobre estructuras sostenibles con ruedas y detalles de confort contemporáneo.</p>
+    </div>
+    <div class="photos">
+      <div class="mask a"><img src="img/cab13.jpg" alt="Cabaña con techo de paja entre palmas" loading="lazy"></div>
+      <div class="mask b"><img src="img/cab22.jpg" alt="Interior de cabaña con mosquitero" loading="lazy"></div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="stats">
+      <div class="stat reveal"><b data-count="10">0</b><span>huéspedes como máximo</span></div>
+      <div class="stat reveal"><b data-count="20" data-suffix="′">0</b><span>a pie hasta la Poza Encantada</span></div>
+      <div class="stat reveal"><b data-count="20" data-suffix="′">0</b><span>hasta donde el río encuentra el mar</span></div>
+      <div class="stat reveal"><b data-count="5" data-dec="1" data-suffix="★">0</b><span>22 reseñas en Google</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="cabins grain" id="cabanas">
+  <div class="pin">
+    <div class="head">
+      <div><div class="eyebrow" style="color:#ffc56e">Cabañas y alojamiento</div><h2>Arquitectura viva,<br><em>sobre ruedas.</em></h2></div>
+      <a class="btn ghost" href="https://wa.me/573007256975" target="_blank" rel="noopener">Consultar fechas</a>
+    </div>
+    <div class="track" id="track">
+      <article class="cabin">
+        <div class="pic"><img src="img/cab20.jpg" alt="Cabaña Tierra Magia" loading="lazy"><img src="img/cab24.jpg" alt="Baño privado de Tierra Magia" loading="lazy"></div>
+        <div class="txt">
+          <span class="tag">Para parejas · uso privado</span>
+          <h3>Tierra Magia</h3>
+          <p>Elegancia ancestral sobre ruedas. Hecha en quincha con techo de paja, elevada y acondicionada con grifería y acabados de primera.</p>
+          <ul><li>Cama doble privada</li><li>Baño privado</li><li>Quincha y techo de paja</li><li>Desayuno opcional</li></ul>
+          <div class="price">$270.000 <small>por noche · desayuno $10.000 por persona</small></div>
+        </div>
+      </article>
+      <article class="cabin">
+        <div class="pic"><img src="img/cab10.jpg" alt="Camarotes de la cabaña Selvática" loading="lazy"><img src="img/cab15.jpg" alt="Terraza de la cabaña Selvática" loading="lazy"></div>
+        <div class="txt">
+          <span class="tag">Compartida o familiar</span>
+          <h3>Selvática</h3>
+          <p>Madera teca, caña lata y techo de paja tradicional, en formato tráiler. Atrás, un área social privada para la brisa de la noche.</p>
+          <ul><li>4 camas sencillas en camarotes</li><li>Ventilador y luz de lectura por cama</li><li>Terraza posterior privada</li><li>Baños compartidos a pocos pasos</li></ul>
+          <div class="price">$70.000 <small>por cama · con desayuno $80.000 · cabaña completa, pregúntanos</small></div>
+        </div>
+      </article>
+      <article class="cabin">
+        <div class="pic"><span class="soon">Próximamente</span><img src="img/cab21.jpg" alt="Interior cabaña Manigua" loading="lazy"><img src="img/cab17.jpg" alt="Cabaña entre palmas" loading="lazy"></div>
+        <div class="txt">
+          <span class="tag">Familias y grupos pequeños</span>
+          <h3>Manigua</h3>
+          <p>Privacidad y confort bajo el follaje. Hecha a mano en madera, quincha y paja. Está en reparaciones: escríbenos y te avisamos cuando abra.</p>
+          <ul><li>Cama doble y dos sencillas</li><li>Mosquiteros de velo</li><li>Terraza posterior privada</li><li>Baños compartidos a pocos pasos</li></ul>
+          <div class="price">Pronto <small>avísame cuando abra reservas</small></div>
+        </div>
+      </article>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+  </div>
+</section>
+
+<section class="river">
+  <div class="bg" data-parallax="0.25"></div>
+  <div class="content reveal">
+    <div class="eyebrow">Frente de río</div>
+    <h2>El río está a los <em>pies</em> de tu cabaña.</h2>
+    <p>Agua fría que baja de la Sierra Nevada, piedras grandes y monos en los árboles por la tarde.</p>
+  </div>
+</section>
+
+<section class="spaces" id="espacios">
+  <div class="reveal"><div class="eyebrow">Zonas sociales</div><h2>Lo que se <em>comparte.</em></h2></div>
+  <div class="grid">
+    <div class="tile t1 reveal"><img src="img/kio01.jpg" alt="Kiosco principal" loading="lazy"><div class="cap"><h4>Kiosco principal</h4><p>Para encuentros, talleres, lecturas o sesiones de meditación.</p></div></div>
+    <div class="tile t2 reveal"><img src="img/esp36.jpg" alt="Círculo de fuego" loading="lazy"><div class="cap"><h4>Círculo de fuego</h4><p>Historias, círculos de palabra y estrellas.</p></div></div>
+    <div class="tile t3 reveal"><img src="img/ban01.jpg" alt="Baños compartidos" loading="lazy"><div class="cap"><h4>Baños y duchas</h4><p>Duchas amplias al aire libre en bioconstrucción.</p></div></div>
+    <div class="tile t4 reveal"><img src="img/arb01.jpg" alt="Árbol sagrado" loading="lazy"><div class="cap"><h4>El árbol sagrado</h4><p>Un rincón contemplativo bajo el follaje.</p></div></div>
+    <div class="tile t5 reveal"><img src="img/esp35.jpg" alt="Restaurante y bar de noche" loading="lazy"><div class="cap"><h4>Restaurante y bar</h4><p>Cocina colombiana e internacional, jugos naturales. Abierto también a visitantes.</p></div></div>
+    <div class="tile t6 reveal"><img src="img/esp45.jpg" alt="Música en vivo" loading="lazy"><div class="cap"><h4>Música en vivo</h4><p>Jamming, karaoke y DJs invitados.</p></div></div>
+    <div class="tile t7 reveal"><img src="img/esp26.jpg" alt="Cancha de vóley y hamaca" loading="lazy"><div class="cap"><h4>Vóley en arena</h4><p>Sol y una hamaca para el que pierde.</p></div></div>
+    <div class="tile t8 reveal"><img src="img/esp48.jpg" alt="Caminata por la selva" loading="lazy"><div class="cap"><h4>Senderos</h4><p>La selva empieza en la puerta.</p></div></div>
+  </div>
+</section>
+
+<section class="plans grain" id="planes">
+  <div class="marquee" aria-hidden="true"><span>Poza Encantada · Tayrona · Ciudad Perdida · Mendihuaca · </span><span>Poza Encantada · Tayrona · Ciudad Perdida · Mendihuaca · </span></div>
+  <div class="reveal"><div class="eyebrow" style="color:#ffc56e">Planes y aventuras</div><h2>Desde acá se llega <em>a todo.</em></h2></div>
+  <ul class="plist">
+    <li class="reveal"><span class="n">01</span><h5>Poza Encantada</h5><p>A 20 minutos por un sendero selvático. Sagrada para los kogui.</p></li>
+    <li class="reveal"><span class="n">02</span><h5>Desembocadura del Mendihuaca</h5><p>20 minutos a pie hasta donde el río se encuentra con el Caribe.</p></li>
+    <li class="reveal"><span class="n">03</span><h5>Parque Tayrona</h5><p>Uno de los parajes naturales más reconocidos del país, a pocos minutos.</p></li>
+    <li class="reveal"><span class="n">04</span><h5>Día de yate</h5><p>Excursiones por las bahías escondidas del Tayrona.</p></li>
+    <li class="reveal"><span class="n">05</span><h5>Ciudad Perdida</h5><p>Tu primera base para el trek.</p></li>
+    <li class="reveal"><span class="n">06</span><h5>Saberes ancestrales</h5><p>Talleres de bioconstrucción en quincha, con las manos en el barro.</p></li>
+    <li class="reveal"><span class="n">07</span><h5>Yoga y masajes</h5><p>A orillas del río, con el sonido del agua y la selva.</p></li>
+  </ul>
+</section>
+
+<div class="sunset grain" id="sunset2">
+  <section class="us" id="nosotros">
+    <div class="pics">
+      <div class="mask"><img src="img/nos01.jpg" alt="Los anfitriones en la hamaca con su perro" loading="lazy" style="object-position:30% center"></div>
+      <div class="mask"><img src="img/nos02.jpg" alt="Los anfitriones de Dos Peladas" loading="lazy"></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Nosotros</div>
+      <h2>Empezamos en moto y <em>nos quedamos.</em></h2>
+      <p>Somos la pareja detrás de Dos Peladas: amantes de la música, la naturaleza y los caminos. Tras años de aventuras en moto y en casa rodante, encontramos nuestro lugar en la Sierra Nevada. Aquí siempre habrá una guitarra sonando, comida rica, río cristalino y un hogar lejos de casa.</p>
+      <div class="pet"><img src="img/esp31.jpg" alt="Perro del hostal" loading="lazy"><div><b>Pet friendly.</b> Somos papás de dos perros: tu compañero peludo es bienvenido.</div></div>
+    </div>
+  </section>
+</div>
+
+<section class="reviews">
+  <div class="stars">★★★★★</div>
+  <div class="eyebrow" style="margin-top:.6rem">5,0 · 22 reseñas en Google</div>
+  <div class="quote" id="quote">
+    <blockquote class="on">“Hay lugares que uno no conoce solo por viajar, sino porque los necesita. Dos Peladas fue uno de esos lugares para mí.”<cite>Jose · enero 2026</cite></blockquote>
+    <blockquote>“No solo el concepto del hostal es diferente, sino la calidez con la que te tratan. Cabañas súper cómodas y acceso al río.”<cite>Santiago · diciembre 2025</cite></blockquote>
+    <blockquote>“El cuarto es bonito, muy cómodo, limpio y está construido de una manera espectacular. La comida la preparan con mucho amor.”<cite>Mariana · enero 2026</cite></blockquote>
+  </div>
+  <div class="dots" id="dots"><button class="on" aria-label="Reseña 1"></button><button aria-label="Reseña 2"></button><button aria-label="Reseña 3"></button></div>
+  <a class="btn ghost" style="margin-top:2.5rem" href="https://maps.google.com/maps?cid=18140683899240445921" target="_blank" rel="noopener">Leer todas las reseñas</a>
+</section>
+
+<section class="book" id="reservar">
+  <div class="reveal">
+    <div class="eyebrow">Reservas · cupos muy limitados</div>
+    <h2>¿Listo para el <em>atardecer</em>?</h2>
+    <p>Somos máximo 10 personas, así que reserva con anticipación. Escríbenos por WhatsApp con tus fechas, cuántos vienen y si viene un perro.</p>
+    <a class="btn" href="https://wa.me/573007256975?text=Hola%2C%20quiero%20reservar%20en%20Dos%20Peladas" target="_blank" rel="noopener">WhatsApp +57 300 725 6975</a>
+    <p style="margin-top:1.2rem;font-size:.85rem;opacity:.7">Check-in de 2 a 9 pm · Check-out de 7 am a 12 m</p>
+  </div>
+  <div class="ways">
+    <div class="way reveal"><h6>Desde Santa Marta</h6><p>Bus hacia Palomino por la Troncal del Caribe (poco más de una hora). Pide la parada en la entrada de la Poza Encantada, pasando Guachaca.</p></div>
+    <div class="way reveal"><h6>Los últimos metros</h6><p>10 minutos caminando por el sendero principal, o mototaxi hasta el hostal por $5.000.</p></div>
+    <div class="way reveal"><h6>Desde el aeropuerto</h6><p>Unos 55 km. Podemos coordinar tu transporte. <a href="https://maps.app.goo.gl/yswku3etqNcJzUqy6" target="_blank" rel="noopener" style="color:#ffd39a">Abrir en Google Maps →</a></p></div>
+  </div>
+  <svg class="palms" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true"><path fill="#22150c" d="M0 240V180c60-10 120 10 180 0s90-40 160-30 120 40 200 30 140-50 220-40 120 40 200 35 150-45 240-40 160 30 240 25V240Z"/><g fill="#22150c"><path d="M260 240c4-60 10-110 30-150l4 2c-16 40-22 90-24 148Z"/><path d="M292 92c-30-14-70-12-96 6 30-6 62-2 92 0Zm4-2c10-30 36-54 66-60-24 16-44 38-62 62Zm-2 2c-20 22-30 54-28 84 8-30 18-58 32-82Zm4-2c32 4 62 22 76 50-24-20-50-36-78-46Z"/><path d="M1180 240c-2-70-12-120-36-162l-4 2c20 44 30 92 30 160Z"/><path d="M1142 78c28-16 68-18 96-2-30-4-62 0-92 6Zm-4-2c-12-28-40-50-70-54 26 14 48 34 66 58Zm2 2c22 20 34 52 34 82-10-30-22-56-38-80Zm-4-2c-32 6-60 26-72 54 22-22 46-40 74-50Z"/></g></svg>
+</section>
+
+<footer>
+  <img src="img/logo-color.png" alt="Dos Peladas">
+  <div>Vereda Mendihuaca, vía a la Poza Encantada · Sierra Nevada de Santa Marta, Colombia</div>
+  <div style="display:flex;gap:1.4rem"><a href="https://www.instagram.com/dospeladas/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@dospeladas" target="_blank" rel="noopener">TikTok</a><a href="https://wa.me/573007256975" target="_blank" rel="noopener">WhatsApp</a></div>
+</footer>
+
+<a class="wa" id="wa" href="https://wa.me/573007256975?text=Hola%2C%20quiero%20reservar%20en%20Dos%20Peladas" target="_blank" rel="noopener" aria-label="Reservar por WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.5.3-.5v-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 6 6 0 0 0 1.2 3.1 13 13 0 0 0 5.2 4.6c1.9.8 2.6.9 3.6.7a3 3 0 0 0 2-1.4 2.4 2.4 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4ZM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8Zm8.4-18.2A11.8 11.8 0 0 0 1.9 17.9L.2 24l6.3-1.6A11.8 11.8 0 0 0 24 12.2a11.7 11.7 0 0 0-3.6-8.6Z"/></svg>
+</a>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // split hero headline into animated words
+  $$('.split').forEach(el => {
+    el.innerHTML = el.innerHTML.split(/(<br>|<em>|<\/em>|\s+)/).map(t => {
+      if (!t.trim() || t.startsWith('<')) return t;
+      return `<span class="w"><span>${t}</span></span>`;
+    }).join(' ').replace(/ (<\/?em>) /g,'$1');
+    el.querySelectorAll('.w span').forEach((s,i) => s.style.transitionDelay = (0.5 + i*0.08)+'s');
+  });
+
+  // loader
+  const done = () => { $('#loader').classList.add('done'); document.body.classList.add('ready'); };
+  addEventListener('load', () => setTimeout(done, reduce ? 0 : 900));
+  setTimeout(done, 3500);
+
+  // reveals + counters
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); e.target.querySelectorAll('.mask').forEach(m => m.classList.add('in')); io.unobserve(e.target);
+    const b = e.target.querySelector('[data-count]'); if (b) count(b);
+  }), {threshold:.18});
+  // clip-path hides masks from IntersectionObserver, so watch their containers
+  $$('.photos,.pics').forEach(el => io.observe(el));
+  $$('.reveal').forEach((el,i) => { if (el.parentElement.classList.contains('grid')||el.parentElement.classList.contains('plist')) el.style.transitionDelay = (i%4)*0.08+'s'; io.observe(el); });
+  function count(b){
+    const to = +b.dataset.count, dec = +(b.dataset.dec||0), suf = b.dataset.suffix||'', t0 = performance.now(), D = 1800;
+    const step = t => { const p = Math.min(1,(t-t0)/D), v = to*(1-Math.pow(1-p,4)); b.textContent = v.toFixed(dec).replace('.',',')+suf; if (p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  // sunset palette: golden hour → dusk as you scroll
+  const stops = [[244,195,122],[240,160,90],[224,122,63],[196,83,42],[140,62,40]];
+  const mix = (a,b,t) => a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+  const at = p => { const x = p*(stops.length-1), i = Math.min(stops.length-2, Math.floor(x)); return mix(stops[i],stops[i+1],x-i); };
+
+  // horizontal cabins
+  const cab = $('.cabins'), track = $('#track'), prog = $('#prog');
+  const sizeCabins = () => {
+    if (innerWidth <= 860) { cab.style.height = ''; return; }
+    cab.style.height = (track.scrollWidth - innerWidth + innerHeight * 1.15) + 'px';
+  };
+  addEventListener('resize', sizeCabins); addEventListener('load', sizeCabins); sizeCabins();
+
+  const nav = $('#nav'), wa = $('#wa'), par = $$('[data-parallax]');
+  let ticking = false;
+  const onScroll = () => {
+    const y = scrollY, H = document.documentElement.scrollHeight - innerHeight, p = Math.min(1, y / H);
+    nav.classList.toggle('solid', y > innerHeight * .8);
+    wa.classList.toggle('show', y > innerHeight * .5);
+    const a = at(Math.max(0,p-.08)), b = at(Math.min(1,p+.12));
+    document.documentElement.style.setProperty('--sky-a', `rgb(${mix(a,[250,243,231],.45)})`);
+    document.documentElement.style.setProperty('--sky-b', `rgb(${mix(b,[250,243,231],.15)})`);
+    $$('.sundisc').forEach(s => s.style.setProperty('--sun-y', (5 + p*70)+'%'));
+    if (!reduce) par.forEach(el => { const r = el.parentElement.getBoundingClientRect(); el.style.transform = `translate3d(0,${-r.top * +el.dataset.parallax}px,0)`; });
+    if (innerWidth > 860) {
+      const r = cab.getBoundingClientRect(), len = cab.offsetHeight - innerHeight, q = Math.min(1, Math.max(0, -r.top / len));
+      track.style.transform = `translate3d(${-q * (track.scrollWidth - innerWidth)}px,0,0)`;
+      prog.style.transform = `scaleX(${q})`;
+    }
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, {passive:true});
+  onScroll();
+
+  // reviews carousel
+  const qs = $$('#quote blockquote'), ds = $$('#dots button'); let qi = 0;
+  const show = i => { qi = i; qs.forEach((q,j)=>q.classList.toggle('on',j===i)); ds.forEach((d,j)=>d.classList.toggle('on',j===i)); };
+  ds.forEach((d,i) => d.onclick = () => show(i));
+  setInterval(() => show((qi+1)%qs.length), 6000);
+
+  // warm cursor glow
+  const g = $('.glow');
+  addEventListener('pointermove', e => { g.classList.add('on'); g.style.left = e.clientX+'px'; g.style.top = e.clientY+'px'; }, {passive:true});
+})();
+</script>
+</body>
+</html>
