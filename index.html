@@ -214,6 +214,12 @@ footer a{text-decoration:none}footer a:hover{color:#ffc56e}
 .glow{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(255,197,110,.18),transparent 65%);transform:translate(-50%,-50%);mix-blend-mode:screen;transition:opacity .4s;opacity:0}
 @media(hover:hover){.glow.on{opacity:1}}
 
+/* phones/tablets: no blend modes or animated layers so mobile Safari keeps the hero painted */
+@media (hover:none),(max-width:860px){
+  .hero .bg,.river .bg{will-change:auto}
+  .grain::before{mix-blend-mode:normal;opacity:.06}
+  .glow{display:none}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.mask,.split .w span{opacity:1;transform:none;clip-path:none}}
 </style>
 </head>
@@ -407,6 +413,7 @@ footer a{text-decoration:none}footer a:hover{color:#ffc56e}
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lite = matchMedia('(hover: none), (max-width: 860px)').matches;
 
   // split hero headline into animated words
   $$('.split').forEach(el => {
@@ -460,7 +467,7 @@ footer a{text-decoration:none}footer a:hover{color:#ffc56e}
     document.documentElement.style.setProperty('--sky-a', `rgb(${mix(a,[250,243,231],.45)})`);
     document.documentElement.style.setProperty('--sky-b', `rgb(${mix(b,[250,243,231],.15)})`);
     $$('.sundisc').forEach(s => s.style.setProperty('--sun-y', (5 + p*70)+'%'));
-    if (!reduce) par.forEach(el => { const r = el.parentElement.getBoundingClientRect(); el.style.transform = `translate3d(0,${-r.top * +el.dataset.parallax}px,0)`; });
+    if (!reduce && !lite) par.forEach(el => { const r = el.parentElement.getBoundingClientRect(); el.style.transform = `translate3d(0,${-r.top * +el.dataset.parallax}px,0)`; });
     if (innerWidth > 860) {
       const r = cab.getBoundingClientRect(), len = cab.offsetHeight - innerHeight, q = Math.min(1, Math.max(0, -r.top / len));
       track.style.transform = `translate3d(${-q * (track.scrollWidth - innerWidth)}px,0,0)`;

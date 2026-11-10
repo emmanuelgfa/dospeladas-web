@@ -220,6 +220,12 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
 #cur.big{width:46px;height:46px;background:rgba(93,122,79,.35)}
 @media(hover:hover) and (pointer:fine){#cur{opacity:1}}
 
+/* phones/tablets: keep the hero static so mobile Safari never drops its layers */
+@media (hover:none),(max-width:860px){
+  .hero .photo,.hero .layer,.card,.river .img{will-change:auto}
+  .paper::before{mix-blend-mode:normal;opacity:.18}
+  #cur,#peek{display:none}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.grow,.rise,.hero .ch,.hero p,.hero .cta{opacity:1;transform:none;filter:none}.manifesto .wd{opacity:1}#curtain{display:none}}
 </style>
 </head>
@@ -425,6 +431,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lite = matchMedia('(hover: none), (max-width: 860px)').matches;
   const NS = 'http://www.w3.org/2000/svg';
 
   // ---- procedural palm frond (SVG) ----
@@ -504,7 +511,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
   const fit = () => { cv.width = cv.offsetWidth * devicePixelRatio; cv.height = cv.offsetHeight * devicePixelRatio; };
   fit(); addEventListener('resize', fit);
   const cols = ['#c9b48f', '#8b5a2b', '#5d7a4f', '#e8d9c0'];
-  for (let i = 0; i < 22; i++) leaves.push({x: Math.random(), y: Math.random(), s: 6 + Math.random() * 10, v: .0006 + Math.random() * .0012, a: Math.random() * 6, w: .5 + Math.random(), c: cols[i % 4]});
+  for (let i = 0; i < (lite ? 12 : 22); i++) leaves.push({x: Math.random(), y: Math.random(), s: 6 + Math.random() * 10, v: .0006 + Math.random() * .0012, a: Math.random() * 6, w: .5 + Math.random(), c: cols[i % 4]});
   let heroVisible = true;
   new IntersectionObserver(([e]) => heroVisible = e.isIntersecting).observe($('.hero'));
   (function draw() {
@@ -531,7 +538,8 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
     nav.classList.toggle('solid', y > vh * .85);
     wa.classList.toggle('show', y > vh * .6);
     if (!reduce) {
-      layers.forEach(l => {
+      // hero foliage parallax: desktop only, and only while the hero is on screen
+      if (!lite && y < vh * 1.2) layers.forEach(l => {
         const d = +l.dataset.depth;
         const spread = d > 0 ? y * d * .6 : y * d;
         const sx = l.classList.contains('l1') || l.classList.contains('l3') ? -1 : 1;
