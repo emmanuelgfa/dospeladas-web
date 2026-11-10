@@ -221,10 +221,20 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
 @media(hover:hover) and (pointer:fine){#cur{opacity:1}}
 
 /* phones/tablets: keep the hero static so mobile Safari never drops its layers */
+/* phones/tablets: stay well inside mobile GPU memory so Chrome never leaves the hero unpainted */
 @media (hover:none),(max-width:860px){
   .hero .photo,.hero .layer,.card,.river .img{will-change:auto}
-  .paper::before{mix-blend-mode:normal;opacity:.18}
+  .paper::before{display:none}
   #cur,#peek{display:none}
+  #curtain .frond{display:none}
+  #curtain .bgc{transition-delay:.3s}
+  .hero .ch{filter:none}
+  .blob{animation:none}
+  nav.solid{backdrop-filter:none;background:rgba(246,239,227,.97)}
+  nav:not(.solid) .btn{backdrop-filter:none;background:rgba(31,51,40,.35)}
+  .river{height:auto}
+  .river .stick{position:relative;height:90vh}
+  .river .img{clip-path:none}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.grow,.rise,.hero .ch,.hero p,.hero .cta{opacity:1;transform:none;filter:none}.manifesto .wd{opacity:1}#curtain{display:none}}
 </style>
@@ -490,7 +500,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
   });
 
   // ---- curtain ----
-  const open = () => { document.body.classList.add('open'); setTimeout(() => document.body.classList.add('gone'), 2600); };
+  const open = () => { document.body.classList.add('open'); setTimeout(() => { document.body.classList.add('gone'); $('#curtain')?.remove(); }, 2600); };
   addEventListener('load', () => setTimeout(open, reduce ? 0 : 700));
   setTimeout(open, 3800);
 
@@ -508,15 +518,19 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
 
   // ---- falling leaves canvas ----
   const cv = $('#leaves'), cx = cv.getContext('2d'); let leaves = [];
-  const fit = () => { cv.width = cv.offsetWidth * devicePixelRatio; cv.height = cv.offsetHeight * devicePixelRatio; };
+  const dpr = Math.min(devicePixelRatio || 1, lite ? 1.5 : 2);
+  const fit = () => { cv.width = cv.offsetWidth * dpr; cv.height = cv.offsetHeight * dpr; };
   fit(); addEventListener('resize', fit);
   const cols = ['#c9b48f', '#8b5a2b', '#5d7a4f', '#e8d9c0'];
   for (let i = 0; i < (lite ? 12 : 22); i++) leaves.push({x: Math.random(), y: Math.random(), s: 6 + Math.random() * 10, v: .0006 + Math.random() * .0012, a: Math.random() * 6, w: .5 + Math.random(), c: cols[i % 4]});
   let heroVisible = true;
-  new IntersectionObserver(([e]) => heroVisible = e.isIntersecting).observe($('.hero'));
-  (function draw() {
-    if (heroVisible && !reduce) {
-      const W = cv.width, H = cv.height, d = devicePixelRatio; cx.clearRect(0, 0, W, H);
+  let drawing = false;
+  // only animate while the hero is on screen; stop the loop entirely otherwise
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; if (heroVisible && !drawing && !reduce) { drawing = true; requestAnimationFrame(draw); } }).observe($('.hero'));
+  function draw() {
+    if (!heroVisible) { drawing = false; return; }
+    {
+      const W = cv.width, H = cv.height, d = dpr; cx.clearRect(0, 0, W, H);
       for (const l of leaves) {
         l.y += l.v; l.a += .02 * l.w; if (l.y > 1.05) { l.y = -.05; l.x = Math.random(); }
         const x = (l.x + Math.sin(l.a) * .03) * W, y = l.y * H;
@@ -527,7 +541,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
       }
     }
     requestAnimationFrame(draw);
-  })();
+  }
 
   // ---- scroll + pointer driven motion ----
   const nav = $('#nav'), wa = $('#wa'), layers = $$('.hero [data-depth]');
@@ -557,9 +571,11 @@ footer a{text-decoration:none}footer a:hover{color:var(--linen)}
         c.style.transform = `scale(${1 - q * .06})`; c.style.filter = `brightness(${1 - q * .25})`;
       });
       // river window opens
+      if (!lite) {
       const rr = river.getBoundingClientRect(), rp = Math.min(1, Math.max(0, -rr.top / (river.offsetHeight - vh)));
       const e = rp * rp * (3 - 2 * rp);
       rimg.style.setProperty('--rx', (14 + e * 70) + '%'); rimg.style.setProperty('--ry', (22 + e * 70) + '%');
+      }
     }
     ticking = false;
   };
